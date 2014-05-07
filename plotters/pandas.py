@@ -27,8 +27,9 @@ def getKairos(what):
   if what not in trailing_url:
     raise Exception('Not a valid Kairos enpoint')
 
+  ### YOU NEED TO CHANGE THIS TO YOUR KAIROS INSTALLATION ENDPOINT ###
   PORT = 8080
-  BASE_URL    =   'http://kairosdb.viafoura.net:' + str(PORT) + '/api/v1/' + trailing_url[what]
+  BASE_URL    =   'http://localhost:' + str(PORT) + '/api/v1/' + trailing_url[what]
 
   return requests.get(url=BASE_URL)
 
@@ -43,8 +44,9 @@ def queryKairos(what, body):
   if what not in trailing_url:
     raise Exception('Not a valid Kairos enpoint')
 
+  ### YOU NEED TO CHANGE THIS TO YOUR KAIROS INSTALLATION ENDPOINT ###
   PORT = 8080
-  BASE_URL    =   'http://kairosdb.viafoura.net:' + str(PORT) + '/api/v1/' + trailing_url[what]
+  BASE_URL    =   'http://localhost:' + str(PORT) + '/api/v1/' + trailing_url[what]
 
   return requests.post(url=BASE_URL, data=json.dumps(body))
 
@@ -65,7 +67,7 @@ def main(debug=False):
   #what KairosDB puts in itself
   base_metricnames  = ["kairosdb.datastore.query_collisions","kairosdb.datastore.write_size","kairosdb.jvm.free_memory","kairosdb.jvm.max_memory","kairosdb.jvm.thread_count","kairosdb.jvm.total_memory","kairosdb.protocol.http_request_count","kairosdb.protocol.telnet_request_count"]
   base_tagnames     = ["buffer","host","method"]
-  base_tagvalues    = ["data_points","ip-10-63-16-84","metricnames","put","row_key_index","string_index","tagnames","tags","tagvalues","version"]
+  base_tagvalues    = ["data_points","metricnames","put","row_key_index","string_index","tagnames","tags","tagvalues","version"]
 
   # open up Kairos and figure out what we have...
   metricnames = [m for m in getKairos('metricnames').json()['results'] if "/" in m and m not in base_metricnames]

@@ -6,10 +6,11 @@ print "\n".join(sys.path)
 
 from twython import TwythonStreamer
 
-ckey = 'VdFYMabMVfxIWlZm7EiK81HuG'
-csecret = 'od0bEKii3dDrTDsR096T0EtS80WMdpD4ncdagacbRgnqeyAJoK'
-atoken = '141316512-F48JNDGbFuQNqOoEnv7PDBbe5YEKJUxJySRbAto7'
-asecret = 'dQS6q0pGF7nNO6mZk0frivmvdqwSqP95DmdOIJshAEqaM'
+### PUT IN YOUR TWITTER APP API KEYS ###
+ckey = "YOUR CONSUMER KEY"
+csecret = "YOUR CONSUMER SECRET"
+atoken = "YOUR ACCESS TOKEN"
+asecret = "YOUR ACCESS SECRET"
 
 class MyStreamer(TwythonStreamer):
     def on_success(self, data):
