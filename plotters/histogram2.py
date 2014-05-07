@@ -22,7 +22,7 @@ def getKairos(what):
     raise Exception('Not a valid Kairos enpoint')
 
   PORT = 8080
-  BASE_URL    =   'http://kairosdb.viafoura.net:' + str(PORT) + '/api/v1/' + trailing_url[what]
+  BASE_URL    =   'http://localhost:' + str(PORT) + '/api/v1/' + trailing_url[what]
 
   return requests.get(url=BASE_URL)
 
@@ -38,7 +38,7 @@ def queryKairos(what, body):
     raise Exception('Not a valid Kairos enpoint')
 
   PORT = 8080
-  BASE_URL    =   'http://kairosdb.viafoura.net:' + str(PORT) + '/api/v1/' + trailing_url[what]
+  BASE_URL    =   'http://localhost:' + str(PORT) + '/api/v1/' + trailing_url[what]
 
   return requests.post(url=BASE_URL, data=json.dumps(body))
 
