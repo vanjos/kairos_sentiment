@@ -138,26 +138,6 @@ class Simplesentiment():
 		opener.open(top_level_url + remaining_url)
 		urllib2.install_opener(opener)
 
-	def calaissentiment(self, options, text):
-		"""
-		"""
-		import urllib2, simplejson
-		from urllib import urlencode
-
-		BASE_URL    =   ' http://api.opencalais.com/tag/rs/enrich'
-		API_KEY     =   '9tv3mnazecc76xhy2empqzyu'
-
-		post_parameters = {
-			'x-calais-licenseID'    :   API_KEY,
-		    'content-type'          :   'text/raw',
-		    'accept'                :   'application/json',
-		    'enableMetadataType'    :   'GenericRelations,SocialTags',
-		    'content'               :   text
-		}
-
-		response = simplejson.load(urllib2.urlopen(urllib2.Request(BASE_URL, data=urlencode(post_parameters), headers=post_parameters)))
-		print simplejson.dumps(response, sort_keys=True, indent=8)
-
 	def alchemysentiment(self, options, text=None, url=None):
 		"""
 
@@ -168,8 +148,8 @@ class Simplesentiment():
 			BASE_URL    = 'http://access.alchemyapi.com/calls/text/TextGetTextSentiment'
 		if url:
 			BASE_URL    = 'http://access.alchemyapi.com/calls/html/HTMLGetTextSentiment'
-		API_KEY     = 'd827d190b313e3f9bca55c86f0fb1ee6ff297334'
-		#API_KEY	=	'97b5c535a4809df1980acd0bbce88881030c8ae2'
+		### CHANGE THIS TO YOUR OWN ALCHEMYAPI KEY ###
+		API_KEY     = 'PUT YOUR API KEY HERE'
 
 		post_parameters = {
 			'apikey'        :   API_KEY,
@@ -208,8 +188,8 @@ class Simplesentiment():
 			BASE_URL    = 	'http://access.alchemyapi.com/calls/text/TextGetRankedNamedEntities'
 		if url:
 			BASE_URL    = 	'http://access.alchemyapi.com/calls/text/HTMLGetRankedNamedEntities'
-
-		API_KEY     = 'd827d190b313e3f9bca55c86f0fb1ee6ff297334'
+                ### CHANGE THIS TO YOUR OWN ALCHEMYAPI KEY ###
+		API_KEY     = 'PUT YOUR API KEY HERE'
 
 		post_parameters = {
 			'apikey'        :   API_KEY,
@@ -240,201 +220,6 @@ class Simplesentiment():
 		#print simplejson.dumps(response, sort_keys=True, indent=3)
 
 		return response
-
-	def openamplifysentiment(self, options, text, analysis=None):
-		"""
-		analysis        =   ['all','topics','actions','demographics','styles']
-		output_format   =   ['xml','json','dart']
-		"""
-		import urllib2, simplejson
-		from urllib import urlencode
-		BASE_URL    =   'http://portaltnx20.openamplify.com/AmplifyWeb_v21/AmplifyThis'
-		API_KEY     =   '2guat2q36tzc8kzb6g2qj6m8zt2yq9vs'
-
-		post_parameters = {
-			'inputtext'     :   text,
-			'apiKey'        :   API_KEY,
-			'outputformat'  :   'json',
-			'analysis'      :   analysis if analysis else 'all',
-		}
-
-		response = simplejson.load(urllib2.urlopen(urllib2.Request(BASE_URL, data=urlencode(post_parameters))))
-
-		print simplejson.dumps(response, sort_keys=True, indent=8)
-
-		openamplify_results = {
-			'Polarity'          :   {
-					'Max'   :   {
-						response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Polarity']['Max']['Name'] :
-							response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Polarity']['Max']['Value']
-					},
-					'Mean'  :   {
-						response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Polarity']['Mean']['Name'] :
-							response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Polarity']['Mean']['Value']
-					},
-		            'Min'   :   {
-			            response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Polarity']['Min']['Name'] :
-				            response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Polarity']['Min']['Value']
-		            }
-			},
-			'Demographics'      :   {
-				'Age'	    :   {
-					response['ns1:AmplifyResponse']['AmplifyReturn']['Demographics']['Age']['Name'] :
-						response['ns1:AmplifyResponse']['AmplifyReturn']['Demographics']['Age']['Value']
-			    },
-			    'Education' :   {
-				    response['ns1:AmplifyResponse']['AmplifyReturn']['Demographics']['Education']['Name'] :
-					    response['ns1:AmplifyResponse']['AmplifyReturn']['Demographics']['Education']['Value']
-			    },
-			    'Gender'    :   {
-				    response['ns1:AmplifyResponse']['AmplifyReturn']['Demographics']['Gender']['Name'] :
-					    response['ns1:AmplifyResponse']['AmplifyReturn']['Demographics']['Gender']['Value']
-			    },
-				'Language'  :   {
-					response['ns1:AmplifyResponse']['AmplifyReturn']['Demographics']['Language']['Name'] :
-						response['ns1:AmplifyResponse']['AmplifyReturn']['Demographics']['Language']['Value']
-				}
-			},
-		    'Styles'            :   {
-			    'Contrast'  :   {
-				    response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Contrast']['Name'] :
-					    response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Contrast']['Value']
-			    },
-		        'Decisiveness'  :   {
-			        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Decisiveness']['Name'] :
-				        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Decisiveness']['Value']
-		        },
-		        'Flamboyance'   :   {
-			        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Flamboyance']['Name'] :
-				        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Flamboyance']['Value']
-		        },
-		        'OfferingGuidance'  :   {
-			        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['OfferingGuidance']['Name'] :
-				        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['OfferingGuidance']['Value']
-		        },
-		        'RequestingGuidance'    :   {
-			        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['RequestingGuidance']['Name'] :
-				        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['RequestingGuidance']['Value']
-		        },
-		        'Slang'         :   {
-			        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Slang']['Name'] :
-				        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['Slang']['Value']
-		        },
-		        'TemporalityResult'    :   {
-			        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['TemporalityResult']['Temporality']['Name'] :
-				        response['ns1:AmplifyResponse']['AmplifyReturn']['Styles']['TemporalityResult']['Temporality']['Value']
-		        }
-		    }
-		}
-		#print simplejson.dumps(openamplify_results, sort_keys=True, indent=8)
-
-		return openamplify_results
-
-
-	def theysaysentiment(self, options, text, level='doc'):
-		"""
-		levels = ['doc', 'sentence', 'entity', 'entityrelation', 'word']
-		"""
-		import simplejson, urllib, urllib2
-		BASE_URL    = 'http://api.theysay.io/v1/'
-		TRAIL_URL   = 'sentiment?'
-		USERNAME    = 'ghafoura@theysayanalytics.com'
-		PASSWORD    = 'Disent-Ils2984'
-		headers     = {
-			'Content-Type'  :   'application/json',
-		    'Accept'        :   'application/json'
-		}
-
-		data = {}
-		data['text']   = ' '.join(text) if isinstance(text, list) else text
-		TRAIL_URL       += urllib.urlencode(data)
-
-		theysayresults  =   {}
-
-		level = level if level else 'doc'
-
-		self.apilogin(urllib2, BASE_URL, TRAIL_URL + '&level=' + level, USERNAME, PASSWORD)
-
-		req         = urllib2.Request(BASE_URL + TRAIL_URL + '&level=' + level , headers=headers)
-		response    = simplejson.load(urllib2.urlopen(req))
-
-		print simplejson.dumps(response, sort_keys=True, indent=2)
-		if level == 'doc':
-			theysayresults  =   {'Overall Sentiment': response['sentiment']}
-		elif level == 'entityrelation':
-			for relation in response:
-				if not theysayresults:
-					theysayresults  =   {relation['entity1']['text'] + ' ---> ' + relation['entity2']['text'] : relation['sentiment'] }
-				else:
-					theysayresults[relation['entity1']['text'] + ' ---> ' + relation['entity2']['text']] = relation['sentiment']
-		return theysayresults
-
-
-	def twitterer(self, options, query=None):
-		"""
-		Returns a float for sentiment strength based on the query string.
-		Sort of like trending on twitter.
-		"""
-		import simplejson
-		import urllib
-		from dateutil import parser
-
-		#try:
-		twitterquery=""
-
-		# build up a query
-		if options:
-			if ('tweeter' in options and options['tweeter']):
-				twitterquery = 'from:%s ' % options['tweeter']
-			if ('fromdate' in options and options['fromdate']):
-				try:
-						fromdate = parser.parse(options['fromdate']).date()
-				except:
-						print 'Cannot convert this date: %s' % options['fromdate']
-				twitterquery += 'since:%s ' % fromdate
-			if ('todate' in options and options['todate']):
-				try:
-						todate = parser.parse(options['todate']).date()
-				except:
-						print 'Cannot convert this date: %s' % options['todate']
-				twitterquery += 'until:%s ' % todate
-			if ('hashtag' in options and options['hashtag']):
-				twitterquery += '#%s ' % options['hashtag']
-			if ('mention' in options and options['mention']):
-				twitterquery += '@%s ' % options['mention']
-			if ('negate' in options and options['negate']):
-				twitterquery += '-%s ' % options['negate']
-
-		if (query):
-			twitterquery += str(query)
-
-		json = simplejson.load(urllib.urlopen("http://search.twitter.com/search.json?q=" + self.html_escape(twitterquery.lower())))
-
-		if (json['results']):
-			values = {}
-
-			print("%29s" % 'DENOMINATORS / NORMALIZATION')
-			print("%9s %9s %9s %14s %14s %35s" % ("X^2", "X", "SQRT", "T_METHOD", "L_METHOD", "URL"))
-			for t_method in self.getTokenizers():
-				print '-' * 120
-				for l_method in self.getStemmers():
-					sentiment = self.sentiment(' '.join(tweet['text'] for tweet in json['results']), t_method, l_method)
-					for denom, name in self.getDenoms().items():
-						if not values:
-							values = {'%s [%14s:%14s] (%s)' % ("http://search.twitter.com/search.json?q=" + twitterquery.lower(),
-							                                   self.TOKENIZERS[t_method], self.STEMMERS[l_method],
-							                                   name) : sentiment[denom]}
-						else:
-							values['%s [%14s:%14s] (%s)' % ("http://search.twitter.com/search.json?q=" + twitterquery.lower(),
-							                                self.TOKENIZERS[t_method], self.STEMMERS[l_method],
-							                                name)] = sentiment[denom]
-					print '%9f %9f %9f %14s %14s %s' % (sentiment[0], sentiment[1], sentiment[2],
-					                                    self.TOKENIZERS[t_method], self.STEMMERS[l_method], "http://search.twitter.com/search.json?q=" + twitterquery.lower())
-			return values
-		else:
-			return ["http://search.twitter.com/search.json?q=" + twitterquery.lower(), 0]
-			#except:
-		#	print 'Cannot check for what you have requested'
 
 	def lemmatize(self, token, v=1):
 		if v == self.STEMMER_WORDNET_ENGLISH:
