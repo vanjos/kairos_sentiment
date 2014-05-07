@@ -6,7 +6,7 @@ Sentiment analyzer for streaming twitter into KairosDB (with Cassandra) using Al
 
 The Basics
 
-  Stream twitter firehose, choosing to filter OR sample by both user and term.
+  Stream twitter firehose, choosing to filter OR sample by both user and term.  Stuff it into KairosDB (backed by your choice of RAM, Cassandra, H2, HBase).  Animate real-time graph using Dataframes (from pandas) --- NOT COMPLETE.
 
 Some more in-depth
 
