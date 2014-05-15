@@ -9,10 +9,10 @@ from simplesentiment import Simplesentiment
 import tweepy, json
 
 ### PUT IN YOUR TWITTER APP API KEYS ###
-ckey = "YOUR CONSUMER KEY"
-csecret = "YOUR CONSUMER SECRET"
-atoken = "YOUR ACCESS TOKEN"
-asecret = "YOUR ACCESS SECRET"
+ckey = 'VdFYMabMVfxIWlZm7EiK81HuG'
+csecret = 'od0bEKii3dDrTDsR096T0EtS80WMdpD4ncdagacbRgnqeyAJoK'
+atoken = '141316512-F48JNDGbFuQNqOoEnv7PDBbe5YEKJUxJySRbAto7'
+asecret = 'dQS6q0pGF7nNO6mZk0frivmvdqwSqP95DmdOIJshAEqaM'
 
 class StreamWatcherListener(tweepy.StreamListener):
     """ A listener handles tweets are the received from the stream.
@@ -170,7 +170,7 @@ def pushToKairos(metrics):
 
     ### YOU NEED TO CHANGE THIS TO YOUR KAIROS INSTALLATION ENDPOINT ###
     PORT = 8080
-    BASE_URL    =   'http://localhost:' + str(PORT) + '/api/v1/datapoints'
+    BASE_URL    =   'http://kairosdb.viafoura.net:' + str(PORT) + '/api/v1/datapoints'
 
     return requests.post(url=BASE_URL, data=json.dumps(metrics))
 

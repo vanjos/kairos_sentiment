@@ -149,7 +149,7 @@ class Simplesentiment():
 		if url:
 			BASE_URL    = 'http://access.alchemyapi.com/calls/html/HTMLGetTextSentiment'
 		### CHANGE THIS TO YOUR OWN ALCHEMYAPI KEY ###
-		API_KEY     = 'PUT YOUR API KEY HERE'
+		API_KEY     = 'd827d190b313e3f9bca55c86f0fb1ee6ff297334'
 
 		post_parameters = {
 			'apikey'        :   API_KEY,
@@ -189,7 +189,7 @@ class Simplesentiment():
 		if url:
 			BASE_URL    = 	'http://access.alchemyapi.com/calls/text/HTMLGetRankedNamedEntities'
                 ### CHANGE THIS TO YOUR OWN ALCHEMYAPI KEY ###
-		API_KEY     = 'PUT YOUR API KEY HERE'
+		API_KEY     = 'd827d190b313e3f9bca55c86f0fb1ee6ff297334'
 
 		post_parameters = {
 			'apikey'        :   API_KEY,
